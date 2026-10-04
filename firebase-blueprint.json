@@ -1,0 +1,59 @@
+{
+  "entities": {
+    "user": {
+      "title": "User",
+      "description": "Authenticated student user account in CareerGenie",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique Firebase Auth UID"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Student Google or email address"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Full name of the user"
+        },
+        "photoURL": {
+          "type": "string",
+          "description": "Profile picture URL from Google Auth"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "ISO timestamp of account creation"
+        },
+        "college": {
+          "type": "string",
+          "description": "Student university or college name"
+        },
+        "degree": {
+          "type": "string",
+          "description": "Degree and major of student"
+        },
+        "cgpa": {
+          "type": "string",
+          "description": "Cumulative GPA or academic score"
+        },
+        "targetRoles": {
+          "type": "string",
+          "description": "Comma-separated target career roles"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "ISO timestamp of latest profile update"
+        }
+      },
+      "required": ["id", "email"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "user",
+      "description": "User profile document owned by the authenticated user"
+    }
+  }
+}

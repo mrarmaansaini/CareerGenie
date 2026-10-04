@@ -1,0 +1,6 @@
+{
+  "name": "CareerGenie - Autonomous AI Career Agent",
+  "description": "Autonomous AI Career Agent for students & freshers powered by Gemini & SerpApi. Real-time internship matching, skill gap diagnosis, learning roadmaps, mock interviews, and company intelligence.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
