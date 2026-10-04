@@ -965,13 +965,7 @@ export default function App() {
       {isAuthModalOpen && (
         <AuthScreen
           onAuthenticated={handleAuthenticated}
-          onContinueAsGuest={() => {
-            setIsAuthModalOpen(false);
-            const hasChosen = sessionStorage.getItem('careergenie_session_mode_chosen');
-            if (!hasChosen) {
-              setIsModeModalOpen(true);
-            }
-          }}
+          onClose={authUser ? () => setIsAuthModalOpen(false) : undefined}
         />
       )}
 
