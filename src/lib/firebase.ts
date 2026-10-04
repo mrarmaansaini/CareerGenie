@@ -5,6 +5,10 @@ import {
   signInWithPopup,
   signOut as fbSignOut,
   onAuthStateChanged,
+  signInAnonymously,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  updateProfile,
   User as FirebaseUser
 } from 'firebase/auth';
 import {
@@ -35,5 +39,13 @@ export async function testFirestoreConnection() {
   }
 }
 
-export { signInWithPopup, fbSignOut, onAuthStateChanged };
+export {
+  signInWithPopup,
+  fbSignOut,
+  onAuthStateChanged,
+  signInAnonymously,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  updateProfile
+};
 export type { FirebaseUser };
