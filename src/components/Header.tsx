@@ -145,7 +145,6 @@ export const Header: React.FC<HeaderProps> = ({
                     src={authUser.photoURL}
                     alt={authUser.displayName || 'Google Profile'}
                     className="w-8 h-8 rounded-xl border border-slate-700 object-cover shadow-sm group-hover:border-indigo-400 transition shrink-0"
-                    referrerPolicy="no-referrer"
                   />
                 ) : (
                   <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-indigo-500 to-cyan-400 flex items-center justify-center text-xs font-bold text-white shadow-sm shrink-0">

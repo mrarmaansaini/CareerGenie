@@ -45,13 +45,12 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
               <img
                 src={authUser.photoURL}
                 alt={authUser.displayName || 'Google Profile'}
-                className="w-12 h-12 rounded-2xl border border-indigo-500/40 object-cover shadow-lg shrink-0"
-                referrerPolicy="no-referrer"
+                className="w-12 h-12 rounded-2xl border border-indigo-500/40 object-cover shadow-lg"
               />
             ) : (
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-cyan-400 p-0.5 shadow-lg shadow-indigo-600/30 shrink-0">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-cyan-400 p-0.5 shadow-lg shadow-indigo-600/30">
                 <div className="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center text-white font-black text-lg">
-                  {(authUser?.displayName || activeProfile.fullName || 'G').charAt(0).toUpperCase()}
+                  {(authUser?.displayName || activeProfile.fullName || 'S').charAt(0).toUpperCase()}
                 </div>
               </div>
             )}
