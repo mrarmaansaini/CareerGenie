@@ -29,7 +29,7 @@ import { SplashScreen } from './components/SplashScreen';
 import { ModeSelectionModal } from './components/ModeSelectionModal';
 import { AuthScreen } from './components/AuthScreen';
 import { UserProfileModal } from './components/UserProfileModal';
-import { auth, onAuthStateChanged, fbSignOut, testFirestoreConnection } from './lib/firebase';
+import { auth, onAuthStateChanged, getRedirectResult, fbSignOut, testFirestoreConnection } from './lib/firebase';
 import {
   Sparkles,
   Search,
@@ -84,9 +84,37 @@ export default function App() {
   const [serpApiKey, setSerpApiKey] = useState(() => localStorage.getItem('careergenie_serp_key') || '');
   const [geminiApiKey, setGeminiApiKey] = useState(() => localStorage.getItem('careergenie_gemini_key') || '');
 
-  // Initialize Firebase Auth listener
+  // Initialize Firebase Auth listener and handle Google OAuth redirect
   useEffect(() => {
     testFirestoreConnection();
+
+    // Check for Google Sign-In redirect result
+    getRedirectResult(auth)
+      .then((result) => {
+        if (result?.user) {
+          const u: AuthUser = {
+            uid: result.user.uid,
+            displayName: result.user.displayName,
+            email: result.user.email,
+            photoURL: result.user.photoURL
+          };
+          setAuthUser(u);
+          localStorage.setItem('careergenie_auth_user', JSON.stringify(u));
+          setIsAuthModalOpen(false);
+          setShowSplash(false);
+          if (result.user.displayName) {
+            setActiveProfile(prev => ({
+              ...prev,
+              fullName: result.user.displayName || prev.fullName,
+              email: result.user.email || prev.email
+            }));
+          }
+        }
+      })
+      .catch((err) => {
+        console.warn('Google redirect resolution note:', err);
+      });
+
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
       if (firebaseUser) {
         const u: AuthUser = {

@@ -3,6 +3,8 @@ import {
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
   signOut as fbSignOut,
   onAuthStateChanged,
   signInAnonymously,
@@ -41,6 +43,8 @@ export async function testFirestoreConnection() {
 
 export {
   signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
   fbSignOut,
   onAuthStateChanged,
   signInAnonymously,
