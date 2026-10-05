@@ -158,7 +158,8 @@ export default function App() {
       if (keys.geminiApiKey) setGeminiApiKey(keys.geminiApiKey);
       localStorage.setItem('careergenie_serp_key', keys.serpApiKey);
       if (keys.geminiApiKey) localStorage.setItem('careergenie_gemini_key', keys.geminiApiKey);
-      fetchLiveOpportunities('Software Engineer Intern');
+      // Fetch live immediately with the newly applied key
+      fetchLiveOpportunities(activeProfile.targetRoles[0] || 'Software Engineer Intern', keys.serpApiKey);
     }
   };
 
@@ -219,9 +220,10 @@ export default function App() {
   }, []);
 
   // Fetch opportunities from SerpApi proxy endpoint
-  const fetchLiveOpportunities = async (query: string) => {
+  const fetchLiveOpportunities = async (query: string, overrideApiKey?: string) => {
     setIsLoadingJobs(true);
     setActiveAgentName('Opportunity Genie (SerpApi)');
+    const keyToUse = (overrideApiKey !== undefined ? overrideApiKey : serpApiKey) || localStorage.getItem('careergenie_serp_key') || '';
     try {
       const res = await fetch('/api/serpapi/jobs', {
         method: 'POST',
@@ -229,10 +231,10 @@ export default function App() {
         body: JSON.stringify({
           query: query || 'Frontend React Intern India',
           location: 'India',
-          customApiKey: serpApiKey
+          customApiKey: keyToUse
         })
       });
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
       const rawJobs: Opportunity[] = data.jobs || [];
 
       // Calculate initial match scores against active profile
@@ -1020,6 +1022,10 @@ export default function App() {
         setSerpApiKey={setSerpApiKey}
         geminiApiKey={geminiApiKey}
         setGeminiApiKey={setGeminiApiKey}
+        onSaveKeys={(newSerp) => {
+          fetchLiveOpportunities(activeProfile.targetRoles[0] || 'Software Engineer Intern', newSerp);
+          fetchCompanyIntel(selectedJob?.company_name || 'Swiggy');
+        }}
       />
     </div>
   );
